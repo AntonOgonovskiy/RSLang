@@ -10,16 +10,18 @@ const axiosClient = axios.create({
 });
 
 const token = null;
+
 function setParamsOfAggregatedWords(group = '', page = '', wordsPerPage = '', filter = '') {
   return `?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}&filter=${filter}`
 }
 
 export async function getAllWords(group: number, page: number) {
-  return axiosClient.get(`?group=${group}&page=${page}`)
+  const response = await axiosClient.get(`/words?group=${group}&page=${page}`)
+  return response.data
 }
 
 export async function getWordById(id: string) {
-  return axiosClient.get(`/${id}`)
+  return axiosClient.get(`/words/${id}`)
 }
 
 export async function createUser(data: user) {
