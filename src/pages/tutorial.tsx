@@ -1,10 +1,10 @@
-import React from 'react';
+
+import { TutorialPage } from "../components/TutorialPage";
 
 export const Tutorial = () => {
   return (
     <div>
-      BOOK!
+      <TutorialPage />
     </div>
   );
 }
-

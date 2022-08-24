@@ -1,7 +1,7 @@
 import axios from "axios";
 import { settings, statistics, user, userLogin, WordBody } from "../types/types";
 
-const axiosClient = axios.create({
+export const axiosClient = axios.create({
   baseURL: 'https://react-learnwords-rslangg.herokuapp.com',
   headers: {
     'Accept': 'application/json',
@@ -15,11 +15,12 @@ function setParamsOfAggregatedWords(group = '', page = '', wordsPerPage = '', fi
 }
 
 export async function getAllWords(group: number, page: number) {
-  return axiosClient.get(`?group=${group}&page=${page}`)
+  const request = await axiosClient.get(`/words?group=${group}&page=${page}`)
+  return request.data
 }
 
 export async function getWordById(id: string) {
-  return axiosClient.get(`/${id}`)
+  return axiosClient.get(`/words/${id}`)
 }
 
 export async function createUser(data: user) {
