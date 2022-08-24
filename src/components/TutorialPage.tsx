@@ -7,9 +7,11 @@ import WordCards from './WordCard';
 
 
 export const TutorialPage = () => {
+  const statePage: number = localStorage.getItem('page') ? Number(localStorage.getItem('page')) : 1
+  const stateComplexity: number = localStorage.getItem('complexity') ? Number(localStorage.getItem('complexity')) : 1
   const [words, setWords] = useState([]);
-  const [page, setPage] = useState(1);
-  const [complexity, setComplexity] = useState(1);
+  const [page, setPage] = useState(statePage);
+  const [complexity, setComplexity] = useState(stateComplexity);
   const [isCardsLoading, setCardsLoading] = useState(false)
 
   useEffect(() => {
@@ -17,6 +19,10 @@ export const TutorialPage = () => {
     getAllWords(complexity - 1, page - 1).then(res => {
       setWords(res)
       setCardsLoading(false)
+    });
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem('page', String(page));
+      localStorage.setItem('complexity', String(complexity));
     });
   }, [page, complexity])
 
@@ -27,6 +33,7 @@ export const TutorialPage = () => {
   function changeComplexity(value: number) {
     setComplexity(value)
   }
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {isCardsLoading
