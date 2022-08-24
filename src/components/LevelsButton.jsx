@@ -4,6 +4,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 export const LevelsButton = ({ choseComplexity }) => {
+  const stateComplexity = localStorage.getItem('complexity') ? Number(localStorage.getItem('complexity')) : 1
+  const [complexity, setComplexity] = React.useState(stateComplexity)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -11,6 +13,7 @@ export const LevelsButton = ({ choseComplexity }) => {
   };
   const handleClose = (event) => {
     choseComplexity(event.currentTarget.value)
+    setComplexity(event.currentTarget.value)
     setAnchorEl(null);
   };
   return (
@@ -22,7 +25,7 @@ export const LevelsButton = ({ choseComplexity }) => {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        Level
+        {complexity}
       </Button>
       <Menu
         id="basic-menu"
