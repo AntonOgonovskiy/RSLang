@@ -5,6 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 export const LevelsButton = ({ choseComplexity }) => {
   const stateComplexity = localStorage.getItem('complexity') ? Number(localStorage.getItem('complexity')) : 1
+  const colors = ["Thistle", "Plum", "Orchid", "MediumOrchid", "DarkOrchid", "RebeccaPurple"]
   const [complexity, setComplexity] = React.useState(stateComplexity)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -12,13 +13,18 @@ export const LevelsButton = ({ choseComplexity }) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (event) => {
-    choseComplexity(event.currentTarget.value)
-    setComplexity(event.currentTarget.value)
-    setAnchorEl(null);
+    event.preventDefault()
+    if (event.currentTarget.value) {
+
+      choseComplexity(event.currentTarget.value)
+      setComplexity(event.currentTarget.value)
+      setAnchorEl(null);
+      document.body.style.background = colors[event.currentTarget.value - 1]
+    }
   };
   return (
     <div>
-      <Button
+      <Button variant="contained" color="secondary"
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
@@ -27,7 +33,7 @@ export const LevelsButton = ({ choseComplexity }) => {
       >
         {complexity}
       </Button>
-      <Menu
+      <Menu color="secondary"
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
@@ -36,15 +42,13 @@ export const LevelsButton = ({ choseComplexity }) => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem value='1' onClick={handleClose}>1</MenuItem>
-        <MenuItem value='2' onClick={handleClose}>2</MenuItem>
-        <MenuItem value='3' onClick={handleClose}>3</MenuItem>
-        <MenuItem value='4' onClick={handleClose}>4</MenuItem>
-        <MenuItem value='5' onClick={handleClose}>5</MenuItem>
-        <MenuItem value='6' onClick={handleClose}>6</MenuItem>
+        <MenuItem sx={{ backgroundColor: colors[0] }} value='1' onClick={handleClose}>1</MenuItem>
+        <MenuItem sx={{ backgroundColor: colors[1] }} value='2' onClick={handleClose}>2</MenuItem>
+        <MenuItem sx={{ backgroundColor: colors[2] }} value='3' onClick={handleClose}>3</MenuItem>
+        <MenuItem sx={{ backgroundColor: colors[3] }} value='4' onClick={handleClose}>4</MenuItem>
+        <MenuItem sx={{ backgroundColor: colors[4] }} value='5' onClick={handleClose}>5</MenuItem>
+        <MenuItem sx={{ backgroundColor: colors[5] }} value='6' onClick={handleClose}>6</MenuItem>
       </Menu>
-    </div>
+    </div >
   );
 }
-// Тип "{ choseComplexity: Dispatch<SetStateAction<number>>; }" не может быть назначен для типа "IntrinsicAttributes & Dispatch<SetStateAction<number>>".
-//   Свойство "choseComplexity" не существует в типе "IntrinsicAttributes & Dispatch<SetStateAction<number>>".
