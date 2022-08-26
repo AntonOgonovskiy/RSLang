@@ -37,7 +37,7 @@ export const TutorialPage = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {isCardsLoading
-        ? <div > <CircularProgress size={150} color="secondary" /></div>
+        ? <div > <CircularProgress size={150} color="primary" /></div>
         : <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           {words.map((word: WordCard) =>
             <Grid item xs={2} sm={4} md={4} key={word.id} display="flex" justifyContent="center" alignItems="center">
@@ -46,7 +46,7 @@ export const TutorialPage = () => {
         </Grid>
       }
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Pagination color="secondary" style={{ margin: 20 }} count={30} page={page} onChange={handleChange} />
+        <Pagination color="primary" style={{ margin: 20 }} count={30} page={page} onChange={handleChange} />
         <LevelsButton choseComplexity={changeComplexity} />
       </div>
     </div >

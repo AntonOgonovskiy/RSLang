@@ -24,7 +24,7 @@ export const LevelsButton = ({ choseComplexity }) => {
   };
   return (
     <div>
-      <Button variant="contained" color="secondary"
+      <Button variant="contained" color="primary"
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
@@ -33,7 +33,7 @@ export const LevelsButton = ({ choseComplexity }) => {
       >
         {complexity}
       </Button>
-      <Menu color="secondary"
+      <Menu color="primary"
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
