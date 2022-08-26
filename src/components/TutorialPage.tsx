@@ -34,6 +34,10 @@ export const TutorialPage = () => {
     setPage(value);
   };
 
+  const setBodyColor = () => {
+    document.body.style.background = 'white'
+  };
+
   function changeComplexity(value: number) {
     setComplexity(value)
   }
@@ -51,13 +55,13 @@ export const TutorialPage = () => {
       }
       <Paper style={{ display: 'flex', alignItems: 'center', margin: 10, padding: 8, justifyContent: 'space-between', width: '95vw' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '13%' }}>
-          <Link to="/">
+          <Link to="/" onClick={setBodyColor}>
             <BungalowIcon color="primary" fontSize="large" style={{ cursor: 'pointer' }} />
           </Link>
-          <Link to="/dictionary">
+          <Link to="/dictionary" onClick={setBodyColor}>
             <MenuBookIcon color='primary' fontSize="large" style={{ cursor: 'pointer' }} />
           </Link>
-          <Link to="/games">
+          <Link to="/games" onClick={setBodyColor}>
             <SportsEsportsIcon color='primary' fontSize="large" style={{ cursor: 'pointer' }} />
           </Link>
         </div>

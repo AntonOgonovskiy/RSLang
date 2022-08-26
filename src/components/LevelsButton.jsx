@@ -9,6 +9,7 @@ export const LevelsButton = ({ choseComplexity }) => {
   const [complexity, setComplexity] = React.useState(stateComplexity)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  document.body.style.background = colors[complexity - 1]
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -19,7 +20,6 @@ export const LevelsButton = ({ choseComplexity }) => {
       choseComplexity(event.currentTarget.value)
       setComplexity(event.currentTarget.value)
       setAnchorEl(null);
-      document.body.style.background = colors[event.currentTarget.value - 1]
     }
   };
   return (
