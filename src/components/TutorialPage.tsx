@@ -1,9 +1,13 @@
-import { CircularProgress, Grid, Pagination } from '@mui/material';
+import { CircularProgress, Grid, Pagination, Paper } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { getAllWords } from '../api/api';
 import { WordCard } from '../types/types';
 import { LevelsButton } from './LevelsButton';
 import WordCards from './WordCard';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import BungalowIcon from '@mui/icons-material/Bungalow';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import { Link } from 'react-router-dom';
 
 
 export const TutorialPage = () => {
@@ -45,10 +49,21 @@ export const TutorialPage = () => {
             </Grid>)}
         </Grid>
       }
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Paper style={{ display: 'flex', alignItems: 'center', margin: 10, padding: 8, justifyContent: 'space-between', width: '95vw' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '13%' }}>
+          <Link to="/">
+            <BungalowIcon color="primary" fontSize="large" style={{ cursor: 'pointer' }} />
+          </Link>
+          <Link to="/dictionary">
+            <MenuBookIcon color='primary' fontSize="large" style={{ cursor: 'pointer' }} />
+          </Link>
+          <Link to="/games">
+            <SportsEsportsIcon color='primary' fontSize="large" style={{ cursor: 'pointer' }} />
+          </Link>
+        </div>
         <Pagination color="primary" style={{ margin: 20 }} count={30} page={page} onChange={handleChange} />
         <LevelsButton choseComplexity={changeComplexity} />
-      </div>
+      </Paper >
     </div >
   )
 }

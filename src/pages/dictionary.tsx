@@ -1,12 +1,9 @@
 import React from 'react';
 
-export const Games = () => {
+export const Dictionary = () => {
   return (
     <div>
-      HIIIIIIIIIIIIIIIIIIII
+      HI everybody
     </div>
   );
 }
-
-
-

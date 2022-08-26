@@ -27,19 +27,19 @@ const WordCards = (props: WordCard) => {
       />
       <CardContent>
         <Box sx={{ height: 35, display: 'flex', alignItems: 'center', pb: 1, justifyContent: 'space-around' }}>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h6" component="div">
             {props.word}
           </Typography>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h6" component="div">
             {props.wordTranslate}
           </Typography>
         </Box>
         <Box sx={{ height: 35, display: 'flex', alignItems: 'center', pb: 1, justifyContent: 'space-around' }}>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h6" component="div">
             {props.transcription}
           </Typography>
           <IconButton aria-label="play/pause" onClick={playSnd} >
-            <VolumeUpIcon sx={{ height: 30, width: 30 }} />
+            <VolumeUpIcon sx={{ height: 25, width: 25 }} />
           </IconButton>
         </Box>
         <Typography variant="body2" color="text.primary" marginBottom={1} dangerouslySetInnerHTML={{ __html: props.textMeaning }} />
@@ -48,8 +48,10 @@ const WordCards = (props: WordCard) => {
         <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: props.textExampleTranslate }} />
       </CardContent>
     </Card >
+
   )
 }
 
 export default WordCards
+
 
