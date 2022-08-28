@@ -6,8 +6,8 @@ import { LevelsButton } from './LevelsButton';
 import WordCards from './WordCard';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import BungalowIcon from '@mui/icons-material/Bungalow';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { Link } from 'react-router-dom';
+import GamesButtons from './GamesButtons';
 
 
 export const TutorialPage = () => {
@@ -18,17 +18,21 @@ export const TutorialPage = () => {
   const [complexity, setComplexity] = useState(stateComplexity);
   const [isCardsLoading, setCardsLoading] = useState(false)
 
+
   useEffect(() => {
+    savePageState();
     setCardsLoading(true)
     getAllWords(complexity - 1, page - 1).then(res => {
       setWords(res)
       setCardsLoading(false)
     });
-    window.addEventListener("beforeunload", () => {
-      localStorage.setItem('page', String(page));
-      localStorage.setItem('complexity', String(complexity));
-    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, complexity])
+
+  const savePageState = () => {
+    localStorage.setItem('page', String(page));
+    localStorage.setItem('complexity', String(complexity));
+  }
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -43,7 +47,7 @@ export const TutorialPage = () => {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
       {isCardsLoading
         ? <div > <CircularProgress size={150} color="primary" /></div>
         : <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -61,9 +65,7 @@ export const TutorialPage = () => {
           <Link to="/dictionary" onClick={setBodyColor}>
             <MenuBookIcon color='primary' fontSize="large" style={{ cursor: 'pointer' }} />
           </Link>
-          <Link to="/games" onClick={setBodyColor}>
-            <SportsEsportsIcon color='primary' fontSize="large" style={{ cursor: 'pointer' }} />
-          </Link>
+          <GamesButtons />
         </div>
         <Pagination color="primary" style={{ margin: 20 }} count={30} page={page} onChange={handleChange} />
         <LevelsButton choseComplexity={changeComplexity} />

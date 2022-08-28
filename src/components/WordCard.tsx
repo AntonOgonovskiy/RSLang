@@ -19,7 +19,7 @@ const WordCards = (props: WordCard) => {
     sounds[i].play();
   }
   return (
-    <Card sx={{ width: 450 }}>
+    <Card sx={{ width: 450 }} id={props.id}>
       <CardMedia
         component="img"
         image={cardImg}
