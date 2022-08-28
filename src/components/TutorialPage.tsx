@@ -58,12 +58,12 @@ export const TutorialPage = () => {
         </Grid>
       }
       <Paper style={{ display: 'flex', alignItems: 'center', margin: 10, padding: 8, justifyContent: 'space-between', width: '95vw' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '13%' }}>
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '13%' }}>
           <Link to="/" onClick={setBodyColor}>
-            <BungalowIcon color="primary" fontSize="large" style={{ cursor: 'pointer' }} />
+            <BungalowIcon color="primary" fontSize="large" style={{ cursor: 'pointer', width: 56, height: 56 }} />
           </Link>
           <Link to="/dictionary" onClick={setBodyColor}>
-            <MenuBookIcon color='primary' fontSize="large" style={{ cursor: 'pointer' }} />
+            <MenuBookIcon color='primary' fontSize="large" style={{ cursor: 'pointer', width: 56, height: 56 }} />
           </Link>
           <GamesButtons />
         </div>

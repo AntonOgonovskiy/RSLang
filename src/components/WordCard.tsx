@@ -1,6 +1,9 @@
 import { WordCard } from "../types/types";
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { Box, Card, CardContent, CardMedia, IconButton, Typography } from "@mui/material";
+import SchoolIcon from '@mui/icons-material/School';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+
 const WordCards = (props: WordCard) => {
 
   const base = 'https://react-learnwords-rslangg.herokuapp.com/'
@@ -47,6 +50,10 @@ const WordCards = (props: WordCard) => {
         <Typography variant="body2" color="text.primary" marginBottom={1} dangerouslySetInnerHTML={{ __html: props.textExample }} />
         <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: props.textExampleTranslate }} />
       </CardContent>
+      <div>
+        <SchoolIcon />
+        <LightbulbIcon />
+      </div>
     </Card >
 
   )

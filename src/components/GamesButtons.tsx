@@ -8,13 +8,13 @@ export default function GamesButtons() {
 
   const setBodyColor = () => {
     document.body.style.background = 'white'
-  };
+  }
 
   return (
-    <Box sx={{ height: 35 }}>
+    <Box sx={{ transform: 'translateZ(0px)', flexGrow: 1 }}>
       <SpeedDial
+        sx={{ position: 'absolute', bottom: -28, left: 6 }}
         ariaLabel="SpeedDial openIcon example"
-        sx={{ position: 'absolute', bottom: 0, right: 0, height: 35, width: 35 }}
         icon={<SportsEsportsIcon />}
       >
         <SpeedDialAction
@@ -29,7 +29,7 @@ export default function GamesButtons() {
         <SpeedDialAction
           key='Sprint'
           icon={
-            <Link to="/games/sprint" onClick={setBodyColor} style={{ textDecoration: "none" }}>
+            <Link to="/games/sprint" onClick={setBodyColor} >
               <DirectionsRunIcon />
             </Link>
           }
