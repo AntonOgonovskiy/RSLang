@@ -4,7 +4,6 @@ import { getAllWords } from '../api/api';
 import { WordCard } from '../types/types';
 import { LevelsButton } from './LevelsButton';
 import WordCards from './WordCard';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
 import BungalowIcon from '@mui/icons-material/Bungalow';
 import { Link } from 'react-router-dom';
 import GamesButtons from './GamesButtons';
@@ -61,9 +60,6 @@ export const TutorialPage = () => {
         <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '13%' }}>
           <Link to="/" onClick={setBodyColor}>
             <BungalowIcon color="primary" fontSize="large" style={{ cursor: 'pointer', width: 56, height: 56 }} />
-          </Link>
-          <Link to="/dictionary" onClick={setBodyColor}>
-            <MenuBookIcon color='primary' fontSize="large" style={{ cursor: 'pointer', width: 56, height: 56 }} />
           </Link>
           <GamesButtons />
         </div>

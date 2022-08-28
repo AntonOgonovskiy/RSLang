@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 export const LevelsButton = ({ choseComplexity }) => {
   const stateComplexity = localStorage.getItem('complexity') ? Number(localStorage.getItem('complexity')) : 1
-  const colors = ["Thistle", "Plum", "Orchid", "MediumOrchid", "DarkOrchid", "RebeccaPurple"]
+  const colors = ["Thistle", "Plum", "Orchid", "MediumOrchid", "DarkOrchid", "RebeccaPurple", "DarkSlateBlue"]
   const [complexity, setComplexity] = React.useState(stateComplexity)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -48,6 +48,7 @@ export const LevelsButton = ({ choseComplexity }) => {
         <MenuItem sx={{ backgroundColor: colors[3] }} value='4' onClick={handleClose}>4</MenuItem>
         <MenuItem sx={{ backgroundColor: colors[4] }} value='5' onClick={handleClose}>5</MenuItem>
         <MenuItem sx={{ backgroundColor: colors[5] }} value='6' onClick={handleClose}>6</MenuItem>
+        <MenuItem sx={{ backgroundColor: colors[6] }} value='7' onClick={handleClose}>7</MenuItem>
       </Menu>
     </div >
   );
