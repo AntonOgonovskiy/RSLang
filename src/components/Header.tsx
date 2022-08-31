@@ -49,7 +49,7 @@ const Header: FC = () => {
               horizontal: "center",
             }}
           >
-            <RegistrationForm />
+            <RegistrationForm handleClosePopover={handleClose} />
           </Popover>
         </Toolbar>
       </Container>

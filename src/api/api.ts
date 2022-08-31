@@ -39,8 +39,13 @@ export async function createUser(data: user) {
   return axiosClient.post("/users", JSON.stringify(data));
 }
 
-export function signInAPI(data: userLogin) {
-  return axiosClient.post(`/signin`, JSON.stringify(data));
+export async function signInAPI(data: userLogin) {
+  return axiosClient
+    .post(`/signin`, JSON.stringify(data))
+    .catch((err: Error) => {
+      console.error(err);
+      return { data: "error" };
+    });
 }
 
 export async function getUserById(id: string) {
