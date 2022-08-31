@@ -7,8 +7,10 @@ import {
   WordBody,
 } from "../types/types";
 
-const axiosClient = axios.create({
-  baseURL: "https://react-learnwords-rslangg.herokuapp.com",
+
+export const axiosClient = axios.create({
+  baseURL: 'https://react-learnwords-rslangg.herokuapp.com',
+
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -138,6 +140,10 @@ export async function updateUserWord(
       },
     }
   );
+}
+
+function setParamsOfAggregatedWords(group = '', page = '', wordsPerPage = '', filter = '') {
+  return `?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}&filter=${filter}`
 }
 
 export async function getUserAggregatedWords(id: string) {
