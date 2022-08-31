@@ -3,6 +3,7 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { Box, Card, CardContent, CardMedia, IconButton, Typography } from "@mui/material";
 import SchoolIcon from '@mui/icons-material/School';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 const WordCards = (props: WordCard) => {
 
@@ -50,9 +51,10 @@ const WordCards = (props: WordCard) => {
         <Typography variant="body2" color="text.primary" marginBottom={1} dangerouslySetInnerHTML={{ __html: props.textExample }} />
         <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: props.textExampleTranslate }} />
       </CardContent>
-      <div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', margin: 5 }}>
         <SchoolIcon />
         <LightbulbIcon />
+        <BarChartIcon />
       </div>
     </Card >
 

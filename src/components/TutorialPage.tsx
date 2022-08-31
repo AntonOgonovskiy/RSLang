@@ -46,7 +46,7 @@ export const TutorialPage = () => {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', height: '100vh' }}>
       {isCardsLoading
         ? <div > <CircularProgress size={150} color="primary" /></div>
         : <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -63,7 +63,10 @@ export const TutorialPage = () => {
           </Link>
           <GamesButtons />
         </div>
-        <Pagination color="primary" style={{ margin: 20 }} count={30} page={page} onChange={handleChange} />
+        {complexity === 7 ?
+          '' :
+          <Pagination color="primary" style={{ margin: 20 }} count={30} page={page} onChange={handleChange} />
+        }
         <LevelsButton choseComplexity={changeComplexity} />
       </Paper >
     </div >

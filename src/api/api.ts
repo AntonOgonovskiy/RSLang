@@ -10,9 +10,6 @@ export const axiosClient = axios.create({
 });
 
 const token = null;
-function setParamsOfAggregatedWords(group = '', page = '', wordsPerPage = '', filter = '') {
-  return `?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}&filter=${filter}`
-}
 
 export async function getAllWords(group: number, page: number) {
   const request = await axiosClient.get(`/words?group=${group}&page=${page}`)
@@ -106,6 +103,10 @@ export async function updateUserWord(userId: string, wordId: string, body: WordB
       'Authorization': `Bearer ${token}`,
     }
   })
+}
+
+function setParamsOfAggregatedWords(group = '', page = '', wordsPerPage = '', filter = '') {
+  return `?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}&filter=${filter}`
 }
 
 export async function getUserAggregatedWords(id: string) {
