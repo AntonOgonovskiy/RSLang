@@ -6,7 +6,7 @@ import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import BarChartIcon from '@mui/icons-material/BarChart';
 
 const WordCards = (props: WordCard) => {
-
+  // console.log(props)
   const base = 'https://react-learnwords-rslangg.herokuapp.com/'
   const cardImg = `${base}${props.image}`
   const audio1 = new Audio(`${base}${props.audio}`)
@@ -51,16 +51,17 @@ const WordCards = (props: WordCard) => {
         <Typography variant="body2" color="text.primary" marginBottom={1} dangerouslySetInnerHTML={{ __html: props.textExample }} />
         <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: props.textExampleTranslate }} />
       </CardContent>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', margin: 5 }}>
-        <SchoolIcon />
-        <LightbulbIcon />
-        <BarChartIcon />
-      </div>
+      {localStorage.getItem('user') ?
+        <div style={{ display: 'flex', justifyContent: 'flex-end', margin: 5 }}>
+          <SchoolIcon style={{ cursor: "pointer", marginRight: 10 }} />
+          <LightbulbIcon style={{ cursor: "pointer", marginRight: 10 }} />
+          <BarChartIcon style={{ cursor: "pointer" }} />
+        </div> :
+        ''
+      }
     </Card >
 
   )
 }
 
 export default WordCards
-
-

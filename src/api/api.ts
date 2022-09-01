@@ -19,15 +19,6 @@ export const axiosClient = axios.create({
 
 const token = null;
 
-function setParamsOfAggregatedWords(
-  group = "",
-  page = "",
-  wordsPerPage = "",
-  filter = ""
-) {
-  return `?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}&filter=${filter}`;
-}
-
 export async function getAllWords(group: number, page: number) {
   const response = await axiosClient.get(`/words?group=${group}&page=${page}`);
   return response.data;
@@ -142,20 +133,21 @@ export async function updateUserWord(
   );
 }
 
-function setParamsOfAggregatedWords(group = '', page = '', wordsPerPage = '', filter = '') {
-  return `?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}&filter=${filter}`
-}
+// function setParamsOfAggregatedWords(group = '', page = '', wordsPerPage = '', filter = '') {
+//   return `?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}&filter=${filter}`
+// }
 
-export async function getUserAggregatedWords(id: string) {
-  return axiosClient.get(
-    `/users/${id}/aggregatedWords${setParamsOfAggregatedWords()}`,
+export async function getUserAggregatedWords(id: string | null, token: string | null, group = 0, page = 0, wordsPerPage = 20,) {
+  const response = await axiosClient.get(
+    `/users/${id}/aggregatedWords?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}`,
     {
-      withCredentials: true,
+      // withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     }
   );
+  return response.data
 }
 
 export async function getUserAgregatedWordById(userId: string, wordId: string) {

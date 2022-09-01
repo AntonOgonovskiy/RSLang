@@ -48,7 +48,10 @@ export const LevelsButton = ({ choseComplexity }) => {
         <MenuItem sx={{ backgroundColor: colors[3] }} value='4' onClick={handleClose}>4</MenuItem>
         <MenuItem sx={{ backgroundColor: colors[4] }} value='5' onClick={handleClose}>5</MenuItem>
         <MenuItem sx={{ backgroundColor: colors[5] }} value='6' onClick={handleClose}>6</MenuItem>
-        <MenuItem sx={{ backgroundColor: colors[6] }} value='7' onClick={handleClose}>7</MenuItem>
+        {localStorage.getItem('user') ?
+          <MenuItem sx={{ backgroundColor: colors[6] }} value='7' onClick={handleClose}>7</MenuItem> :
+          ''
+        }
       </Menu>
     </div >
   );

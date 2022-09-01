@@ -26,7 +26,6 @@ const RegistrationForm: FC = () => {
   const signIn: SubmitHandler<ISignForm> = async (data) => {
     const response = await signInAPI(data);
     console.log(response.data);
-    debugger;
     response.data ? setIsErr(false) : setIsErr(true);
 
     localStorage.setItem("user", JSON.stringify(response.data));
@@ -41,7 +40,7 @@ const RegistrationForm: FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.icon__container}>
-        <LockRounded color="primary" fontSize="large"></LockRounded>
+        <LockRounded color="primary" fontSize="large" onClick={() => localStorage.removeItem('user')}></LockRounded>
         <Typography variant="h6">Login</Typography>
       </div>
 

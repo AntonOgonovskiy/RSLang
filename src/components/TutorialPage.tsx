@@ -1,6 +1,6 @@
 import { CircularProgress, Grid, Pagination, Paper } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import { getAllWords } from '../api/api';
+import { getAllWords, getUserAggregatedWords } from '../api/api';
 import { WordCard } from '../types/types';
 import { LevelsButton } from './LevelsButton';
 import WordCards from './WordCard';
@@ -16,15 +16,30 @@ export const TutorialPage = () => {
   const [page, setPage] = useState(statePage);
   const [complexity, setComplexity] = useState(stateComplexity);
   const [isCardsLoading, setCardsLoading] = useState(false)
+  let userId: string | null = null;
+  let token: string | null = null;
+  let userData = (localStorage.getItem('user'));
+  if (userData) {
+    userId = JSON.parse(userData as string).userId
+    token = JSON.parse(userData as string).token
+  }
+
+
 
 
   useEffect(() => {
     savePageState();
     setCardsLoading(true)
-    getAllWords(complexity - 1, page - 1).then(res => {
-      setWords(res)
-      setCardsLoading(false)
-    });
+    localStorage.getItem('user') ?
+      getUserAggregatedWords(userId, token, complexity - 1, page - 1).then(resp => {
+        setWords(resp[0].paginatedResults)
+        console.log(words)
+        setCardsLoading(false)
+      }) :
+      getAllWords(complexity - 1, page - 1).then(res => {
+        setWords(res)
+        setCardsLoading(false)
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, complexity])
 
@@ -46,7 +61,7 @@ export const TutorialPage = () => {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', height: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', height: '97vh' }}>
       {isCardsLoading
         ? <div > <CircularProgress size={150} color="primary" /></div>
         : <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
