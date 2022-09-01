@@ -11,10 +11,8 @@ import { createUser, signInAPI } from "../../api/api";
 import styles from "./RegistrationForm.module.css";
 import {
   HOURS_BEFORE_DEAUTHORIZATION,
-  IDataResponce,
   IRegistrationForm,
   ISignForm,
-  IUserData,
   MS_IN_HOUR,
 } from "./typescript-assets";
 import { emailValidation, passwordValidation } from "./validation";
@@ -28,27 +26,28 @@ const RegistrationForm: FC<IRegistrationForm> = ({ handleClosePopover }) => {
   const [isPopoverLogout, setIsPopoverLogout] = useState<boolean>(false);
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
+    const userTime = localStorage.getItem("time");
 
-    if (user) {
-      const userData: IUserData = JSON.parse(user);
-      const msPassed = Date.now() - Number(userData.time);
+    if (userTime) {
+      const msPassed = Date.now() - Number(userTime);
 
       if (msPassed > MS_IN_HOUR * HOURS_BEFORE_DEAUTHORIZATION) {
         localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        localStorage.removeItem("time");
       } else {
         setIsPopoverLogout(true);
 
         setTimeout(() => {
           localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          localStorage.removeItem("time");
         }, MS_IN_HOUR * HOURS_BEFORE_DEAUTHORIZATION - msPassed);
       }
     }
   }, []);
 
   const signIn: SubmitHandler<ISignForm> = async (data) => {
-    // handleClosePopover();
-
     const response = await signInAPI(data);
 
     if (response.data === "error") {
@@ -58,28 +57,26 @@ const RegistrationForm: FC<IRegistrationForm> = ({ handleClosePopover }) => {
     setIsErr(false);
     setIsPopoverLogout(true);
 
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        time: Date.now().toString(),
-        ...(response.data as IDataResponce),
-      })
-    );
+    localStorage.setItem("user", response.data.userId);
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("time", Date.now().toString());
 
     setTimeout(() => {
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      localStorage.removeItem("time");
     }, MS_IN_HOUR * HOURS_BEFORE_DEAUTHORIZATION);
   };
 
   const signUp: SubmitHandler<ISignForm> = async (data) => {
-    const response = await createUser(data);
-    console.log(response.data);
+    await createUser(data);
     await signIn(data);
   };
 
   const logOut = () => {
-    // handleClosePopover();
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("time");
     setIsPopoverLogout(false);
   };
 
@@ -91,7 +88,6 @@ const RegistrationForm: FC<IRegistrationForm> = ({ handleClosePopover }) => {
             <LockOpenRounded color="primary" fontSize="large"></LockOpenRounded>
             <Typography variant="h6">Logged</Typography>
           </div>
-          {/* <div className={styles.btn__container}> */}
           <Button
             variant="contained"
             size="large"
@@ -100,7 +96,6 @@ const RegistrationForm: FC<IRegistrationForm> = ({ handleClosePopover }) => {
           >
             Log Out
           </Button>
-          {/* </div> */}
         </div>
       ) : (
         <div className={styles.container}>
