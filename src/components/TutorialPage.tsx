@@ -1,9 +1,9 @@
 import { CircularProgress, Grid, Pagination, Paper } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import { getAllWords, getUserAggregatedWords } from '../api/api';
+import { getAllWords, getUserAggregatedWords, getUserHardWords } from '../api/api';
 import { WordCard } from '../types/types';
 import { LevelsButton } from './LevelsButton';
-import WordCards from './WordCard';
+import WordCards from './WordCard/WordCard';
 import BungalowIcon from '@mui/icons-material/Bungalow';
 import { Link } from 'react-router-dom';
 import GamesButtons from './GamesButtons';
@@ -16,24 +16,21 @@ export const TutorialPage = () => {
   const [page, setPage] = useState(statePage);
   const [complexity, setComplexity] = useState(stateComplexity);
   const [isCardsLoading, setCardsLoading] = useState(false)
-  let userId: string | null = null;
-  let token: string | null = null;
-  let userData = (localStorage.getItem('user'));
-  if (userData) {
-    userId = JSON.parse(userData as string).userId
-    token = JSON.parse(userData as string).token
-  }
-
-
-
+  let userId = (localStorage.getItem('user'));
+  let token = (localStorage.getItem('token'));
 
   useEffect(() => {
     savePageState();
     setCardsLoading(true)
+    if (localStorage.getItem('user') && complexity === 7) {
+      getUserHardWords(userId, token).then(resp => {
+        setWords(resp[0].paginatedResults)
+        setCardsLoading(false)
+      })
+    }
     localStorage.getItem('user') ?
       getUserAggregatedWords(userId, token, complexity - 1, page - 1).then(resp => {
         setWords(resp[0].paginatedResults)
-        console.log(words)
         setCardsLoading(false)
       }) :
       getAllWords(complexity - 1, page - 1).then(res => {
@@ -66,8 +63,8 @@ export const TutorialPage = () => {
         ? <div > <CircularProgress size={150} color="primary" /></div>
         : <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           {words.map((word: WordCard) =>
-            <Grid item xs={2} sm={4} md={4} key={word.id} display="flex" justifyContent="center" alignItems="center">
-              <WordCards id={word.id} image={word.image} audio={word.audio} audioMeaning={word.audioMeaning} audioExample={word.audioExample} textMeaning={word.textMeaning} textExample={word.textExample} transcription={word.transcription} textExampleTranslate={word.textExampleTranslate} textMeaningTranslate={word.textMeaningTranslate} wordTranslate={word.wordTranslate} word={word.word} />
+            < Grid item xs={2} sm={4} md={4} key={word._id} display="flex" justifyContent="center" alignItems="center" >
+              <WordCards _id={word._id} image={word.image} audio={word.audio} audioMeaning={word.audioMeaning} audioExample={word.audioExample} textMeaning={word.textMeaning} textExample={word.textExample} transcription={word.transcription} textExampleTranslate={word.textExampleTranslate} textMeaningTranslate={word.textMeaningTranslate} wordTranslate={word.wordTranslate} word={word.word} complexity={complexity} userWord={word.userWord} />
             </Grid>)}
         </Grid>
       }

@@ -1,12 +1,13 @@
-import { WordCard } from "../types/types";
+import { WordCard } from "../../types/types";
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import { Box, Card, CardContent, CardMedia, IconButton, Typography } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, IconButton, Tooltip, Typography } from "@mui/material";
 import SchoolIcon from '@mui/icons-material/School';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import { deleteUserWord, setUserWord } from "../../api/api";
+import styles from "./WordCard.module.css"
 
 const WordCards = (props: WordCard) => {
-  // console.log(props)
   const base = 'https://react-learnwords-rslangg.herokuapp.com/'
   const cardImg = `${base}${props.image}`
   const audio1 = new Audio(`${base}${props.audio}`)
@@ -22,15 +23,30 @@ const WordCards = (props: WordCard) => {
     sounds[i].addEventListener('ended', playSnd);
     sounds[i].play();
   }
+
+  async function addToHard(id: string) {
+    const icon = document.getElementById(id)
+    if (icon) {
+      if (props.complexity === 7) {
+        icon.style.color = 'black'
+        await deleteUserWord(localStorage.getItem('user'), id, localStorage.getItem('token'))
+      } else {
+        icon.style.color = 'red'
+        await setUserWord(localStorage.getItem('user'), id, { difficulty: 'hard' }, localStorage.getItem('token'))
+      }
+    }
+  }
+
   return (
-    <Card sx={{ width: 450 }} id={props.id}>
+    < Card sx={{ width: 450 }
+    } >
       <CardMedia
         component="img"
         image={cardImg}
         alt="cardImg"
       />
       <CardContent>
-        <Box sx={{ height: 35, display: 'flex', alignItems: 'center', pb: 1, justifyContent: 'space-around' }}>
+        <Box className={styles.card_example}>
           <Typography gutterBottom variant="h6" component="div">
             {props.word}
           </Typography>
@@ -38,7 +54,7 @@ const WordCards = (props: WordCard) => {
             {props.wordTranslate}
           </Typography>
         </Box>
-        <Box sx={{ height: 35, display: 'flex', alignItems: 'center', pb: 1, justifyContent: 'space-around' }}>
+        <Box className={styles.card_example}>
           <Typography gutterBottom variant="h6" component="div">
             {props.transcription}
           </Typography>
@@ -51,13 +67,16 @@ const WordCards = (props: WordCard) => {
         <Typography variant="body2" color="text.primary" marginBottom={1} dangerouslySetInnerHTML={{ __html: props.textExample }} />
         <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: props.textExampleTranslate }} />
       </CardContent>
-      {localStorage.getItem('user') ?
-        <div style={{ display: 'flex', justifyContent: 'flex-end', margin: 5 }}>
-          <SchoolIcon style={{ cursor: "pointer", marginRight: 10 }} />
-          <LightbulbIcon style={{ cursor: "pointer", marginRight: 10 }} />
-          <BarChartIcon style={{ cursor: "pointer" }} />
-        </div> :
-        ''
+      {
+        localStorage.getItem('user') ?
+          <div className={styles.card_buttons}>
+            <Tooltip title={props.complexity === 7 ? "Remove from difficult" : "Add to difficult"}>
+              <SchoolIcon id={props._id} className={props.userWord ? `${styles.cardBtn} ${styles.btn_color}` : styles.cardBtn} onClick={() => addToHard(props._id)} />
+            </Tooltip>
+            <LightbulbIcon className={styles.cardBtn} />
+            <BarChartIcon className={styles.cardBtn} />
+          </div> :
+          ''
       }
     </Card >
 

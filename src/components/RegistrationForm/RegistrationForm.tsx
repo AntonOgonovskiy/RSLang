@@ -25,10 +25,9 @@ const RegistrationForm: FC = () => {
 
   const signIn: SubmitHandler<ISignForm> = async (data) => {
     const response = await signInAPI(data);
-    console.log(response.data);
     response.data ? setIsErr(false) : setIsErr(true);
-
-    localStorage.setItem("user", JSON.stringify(response.data));
+    localStorage.setItem("user", (response.data.userId));
+    localStorage.setItem("token", (response.data.token));
   };
 
   const signUp: SubmitHandler<ISignForm> = async (data) => {

@@ -4,7 +4,7 @@ export interface user {
 }
 export interface WordBody {
   difficulty: string;
-  optional: {};
+
 }
 export interface statistics {
   learnedWords: number;
@@ -19,7 +19,9 @@ export interface userLogin {
   password: string;
 }
 export interface WordCard {
-  id: string,
+  userWord: string,
+
+  _id: string,
   word: string,
   image: string,
   audio: string,
@@ -30,5 +32,6 @@ export interface WordCard {
   transcription: string,
   textExampleTranslate: string,
   textMeaningTranslate: string,
-  wordTranslate: string
+  wordTranslate: string,
+  complexity: number,
 }
