@@ -3,9 +3,9 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { Box, Card, CardContent, CardMedia, IconButton, Tooltip, Typography } from "@mui/material";
 import SchoolIcon from '@mui/icons-material/School';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
-import BarChartIcon from '@mui/icons-material/BarChart';
 import { deleteUserWord, getUserWordById, setUserWord, updateUserWord } from "../../api/api";
 import styles from "./WordCard.module.css"
+import StatisticIcon from "../StatisticIcon/StatisticIcon";
 
 const WordCards = (props: WordCard) => {
   const base = 'https://react-learnwords-rslangg.herokuapp.com/'
@@ -106,7 +106,7 @@ const WordCards = (props: WordCard) => {
                 className={props.userWord?.optional?.isKnown === true ? `${styles.cardBtn} ${styles.btn_color_yellow}` : styles.cardBtn}
                 onClick={() => addToKnown(props._id)} />
             </Tooltip>
-            <BarChartIcon className={styles.cardBtn} />
+            <StatisticIcon word={props} />
           </div> :
           ''
       }
