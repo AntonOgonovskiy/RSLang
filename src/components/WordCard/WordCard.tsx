@@ -4,7 +4,7 @@ import { Box, Card, CardContent, CardMedia, IconButton, Tooltip, Typography } fr
 import SchoolIcon from '@mui/icons-material/School';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import { deleteUserWord, setUserWord } from "../../api/api";
+import { deleteUserWord, getUserWordById, setUserWord, updateUserWord } from "../../api/api";
 import styles from "./WordCard.module.css"
 
 const WordCards = (props: WordCard) => {
@@ -25,16 +25,42 @@ const WordCards = (props: WordCard) => {
   }
 
   async function addToHard(id: string) {
-    const icon = document.getElementById(id)
+    if (props.complexity === 7) {
+      const arr = props.wordList.filter((item) => {
+        return item._id !== id
+      })
+      props.setFilter(arr)
+    }
+    const icon = document.getElementById(`${props._id}_difficulty`)
     if (icon) {
       if (props.complexity === 7) {
         icon.style.color = 'black'
         await deleteUserWord(localStorage.getItem('user'), id, localStorage.getItem('token'))
       } else {
         icon.style.color = 'red'
-        await setUserWord(localStorage.getItem('user'), id, { difficulty: 'hard' }, localStorage.getItem('token'))
+        await setUserWord(localStorage.getItem('user'), id, { difficulty: 'hard', optional: { isKnown: false } }, localStorage.getItem('token'))
       }
     }
+  }
+
+  async function addToKnown(id: string) {
+    const iconDifficulty = document.getElementById(`${props._id}_difficulty`)
+    const iconKnown = document.getElementById(`${props._id}_known`)
+    if (iconDifficulty) iconDifficulty.style.color = 'black'
+    const response = await getUserWordById(localStorage.getItem('user'), id, localStorage.getItem('token'))
+    if (iconKnown) {
+      iconKnown.style.color = 'yellow'
+      if (response) {
+        await updateUserWord(localStorage.getItem('user'), id, { difficulty: "easy", optional: { isKnown: true } }, localStorage.getItem('token'))
+      } else {
+        setUserWord(localStorage.getItem('user'), id, { difficulty: "easy", optional: { isKnown: true } }, localStorage.getItem('token'))
+      }
+    }
+  }
+  function checkKnown() {
+    props.userWord?.optional?.isKnown === true || document.getElementById(`${props._id}_known`)?.style.color === 'yellow' ?
+      console.log('unavailible') :
+      addToHard(props._id)
   }
 
   return (
@@ -71,9 +97,15 @@ const WordCards = (props: WordCard) => {
         localStorage.getItem('user') ?
           <div className={styles.card_buttons}>
             <Tooltip title={props.complexity === 7 ? "Remove from difficult" : "Add to difficult"}>
-              <SchoolIcon id={props._id} className={props.userWord ? `${styles.cardBtn} ${styles.btn_color}` : styles.cardBtn} onClick={() => addToHard(props._id)} />
+              <SchoolIcon id={`${props._id}_difficulty`}
+                className={props.userWord?.difficulty === "hard" ? `${styles.cardBtn} ${styles.btn_color_red}` : styles.cardBtn}
+                onClick={() => checkKnown()} />
             </Tooltip>
-            <LightbulbIcon className={styles.cardBtn} />
+            <Tooltip title="Add to learned">
+              <LightbulbIcon id={`${props._id}_known`}
+                className={props.userWord?.optional?.isKnown === true ? `${styles.cardBtn} ${styles.btn_color_yellow}` : styles.cardBtn}
+                onClick={() => addToKnown(props._id)} />
+            </Tooltip>
             <BarChartIcon className={styles.cardBtn} />
           </div> :
           ''

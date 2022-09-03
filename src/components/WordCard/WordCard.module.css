@@ -4,7 +4,11 @@
 
 }
 
-.btn_color {
+.btn_color_yellow {
+  color: yellow;
+}
+
+.btn_color_red {
   color: red;
 }
 

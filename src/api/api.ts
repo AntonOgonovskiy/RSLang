@@ -98,13 +98,12 @@ export async function setUserWord(
   ).catch((e) => e.message);
 }
 
-export async function getUserWordById(userId: string, wordId: string) {
+export async function getUserWordById(userId: string | null, wordId: string, token: string | null) {
   return axiosClient.get(`/users/${userId}/words/${wordId}`, {
-    withCredentials: true,
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  });
+  }).catch((e) => e.status);
 }
 
 export async function deleteUserWord(userId: string | null, wordId: string, token: string | null) {
@@ -112,24 +111,24 @@ export async function deleteUserWord(userId: string | null, wordId: string, toke
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  });
+  }).catch((e) => e.message);
 }
 
 export async function updateUserWord(
-  userId: string,
+  userId: string | null,
   wordId: string,
-  body: WordBody
+  body: WordBody,
+  token: string | null
 ) {
   return axiosClient.put(
     `/users/${userId}/words/${wordId}`,
     JSON.stringify(body),
     {
-      withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     }
-  );
+  ).catch((e) => e.message);
 }
 
 export async function getUserAggregatedWords(id: string | null, token: string | null, group = 0, page = 0, wordsPerPage = 20,) {
@@ -140,7 +139,7 @@ export async function getUserAggregatedWords(id: string | null, token: string | 
         Authorization: `Bearer ${token}`,
       },
     }
-  );
+  ).catch((e) => e.message);
   return response.data
 }
 
@@ -154,7 +153,7 @@ export async function getUserHardWords(userId: string | null, token: string | nu
       params: {
         filter: filter
       }
-    });
+    }).catch((e) => e.message);
   return response.data
 }
 

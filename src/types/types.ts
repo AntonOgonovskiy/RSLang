@@ -4,7 +4,9 @@ export interface user {
 }
 export interface WordBody {
   difficulty: string;
-
+  optional: {
+    isKnown: boolean
+  }
 }
 export interface statistics {
   learnedWords: number;
@@ -19,8 +21,12 @@ export interface userLogin {
   password: string;
 }
 export interface WordCard {
-  userWord: string,
-
+  userWord: {
+    difficulty: string;
+    optional: {
+      isKnown: boolean
+    },
+  },
   _id: string,
   word: string,
   image: string,
@@ -34,4 +40,8 @@ export interface WordCard {
   textMeaningTranslate: string,
   wordTranslate: string,
   complexity: number,
+  wordList: Array<{
+    _id: string;
+  }>
+  setFilter: { (value: any): void }
 }

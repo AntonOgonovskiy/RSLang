@@ -40,6 +40,13 @@ export const TutorialPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, complexity])
 
+
+  function setFilteredWords(value: []) {
+    if (complexity === 7) {
+      setWords(value)
+    }
+  }
+
   const savePageState = () => {
     localStorage.setItem('page', String(page));
     localStorage.setItem('complexity', String(complexity));
@@ -64,7 +71,7 @@ export const TutorialPage = () => {
         : <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           {words.map((word: WordCard) =>
             < Grid item xs={2} sm={4} md={4} key={word._id} display="flex" justifyContent="center" alignItems="center" >
-              <WordCards _id={word._id} image={word.image} audio={word.audio} audioMeaning={word.audioMeaning} audioExample={word.audioExample} textMeaning={word.textMeaning} textExample={word.textExample} transcription={word.transcription} textExampleTranslate={word.textExampleTranslate} textMeaningTranslate={word.textMeaningTranslate} wordTranslate={word.wordTranslate} word={word.word} complexity={complexity} userWord={word.userWord} />
+              <WordCards setFilter={setFilteredWords} wordList={words} _id={word._id} image={word.image} audio={word.audio} audioMeaning={word.audioMeaning} audioExample={word.audioExample} textMeaning={word.textMeaning} textExample={word.textExample} transcription={word.transcription} textExampleTranslate={word.textExampleTranslate} textMeaningTranslate={word.textMeaningTranslate} wordTranslate={word.wordTranslate} word={word.word} complexity={complexity} userWord={word.userWord} />
             </Grid>)}
         </Grid>
       }

@@ -31,8 +31,7 @@ const RegistrationForm: FC = () => {
   };
 
   const signUp: SubmitHandler<ISignForm> = async (data) => {
-    const response = await createUser(data);
-    console.log(response.data);
+    await createUser(data);
     await signIn(data);
   };
 
