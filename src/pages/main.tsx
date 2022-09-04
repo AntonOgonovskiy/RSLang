@@ -1,10 +1,14 @@
 import React, { FC } from "react";
-import Header from "../components/Header";
+import Body from "../components/main/Body/Body";
+import Footer from "../components/main/Footer/Footer";
+import Header from "../components/main/Header";
 
 export const Main: FC = () => {
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <Header />
+      <Body />
+      <Footer />
     </div>
   );
 };
