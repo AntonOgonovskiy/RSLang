@@ -11,7 +11,7 @@ export default function StatisticIcon(word: any) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log(word.word.word)
+  console.log(word.word.userWord?.optional)
   return (
     <div>
       <Tooltip title="Statistic">
@@ -25,7 +25,7 @@ export default function StatisticIcon(word: any) {
       >
         <Box className={styles.modal_box}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {`Statistics on the word "${word.word.word}"`}
+            {`Statistics on the word: "${word.word.word}"`}
           </Typography>
           <StatisticTable stats={word.word.userWord?.optional} />
         </Box>
