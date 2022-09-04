@@ -10,6 +10,7 @@ function AppRouter() {
         <Route path="/" element={<Main />} />
         <Route path="/games" element={<Games />} />
         <Route path="/tutorial" element={<Tutorial />} />
+
       </Routes>
     </BrowserRouter>
   );
