@@ -6,6 +6,7 @@ import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { deleteUserWord, getUserWordById, setUserWord, updateUserWord } from "../../api/api";
 import styles from "./WordCard.module.css"
 import StatisticIcon from "../StatisticIcon/StatisticIcon";
+import { useEffect } from "react";
 
 const WordCards = (props: WordCard) => {
   const base = 'https://react-learnwords-rslangg.herokuapp.com/'
@@ -13,6 +14,9 @@ const WordCards = (props: WordCard) => {
   const audio1 = new Audio(`${base}${props.audio}`)
   const audio2 = new Audio(`${base}${props.audioMeaning}`)
   const audio3 = new Audio(`${base}${props.audioExample}`)
+  useEffect(() => {
+    checkPageKnownWords()
+  })
 
   const sounds = [audio1, audio2, audio3];
   let i = -1;
@@ -56,7 +60,16 @@ const WordCards = (props: WordCard) => {
         setUserWord(localStorage.getItem('user'), id, { difficulty: "easy", optional: { isKnown: true } }, localStorage.getItem('token'))
       }
     }
+    checkPageKnownWords()
   }
+
+  function checkPageKnownWords() {
+    const arr = props.wordList.filter((item) => {
+      return document.getElementById(`${item._id}_known`)?.style.color === 'yellow' || item.userWord?.optional?.isKnown === true
+    })
+    props.checkKnowledge(arr.length === 20 ? true : false)
+  }
+
   function checkKnown() {
     props.userWord?.optional?.isKnown === true || document.getElementById(`${props._id}_known`)?.style.color === 'yellow' ?
       console.log('unavailible') :

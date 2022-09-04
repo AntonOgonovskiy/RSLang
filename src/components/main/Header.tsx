@@ -1,6 +1,5 @@
 import {
   AppBar,
-  Box,
   Button,
   Popover,
   Toolbar,

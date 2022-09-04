@@ -41,7 +41,9 @@ export interface WordCard {
   wordTranslate: string,
   complexity: number,
   wordList: Array<{
+    userWord: any;
     _id: string;
   }>
-  setFilter: { (value: any): void }
+  setFilter: { (value: any): void },
+  checkKnowledge: { (value: boolean): void }
 }

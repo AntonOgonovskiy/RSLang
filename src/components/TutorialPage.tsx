@@ -7,7 +7,7 @@ import WordCards from './WordCard/WordCard';
 import BungalowIcon from '@mui/icons-material/Bungalow';
 import { Link } from 'react-router-dom';
 import GamesButtons from './GamesButtons';
-
+import Footer from './main/Footer/Footer';
 
 export const TutorialPage = () => {
   const statePage: number = localStorage.getItem('page') ? Number(localStorage.getItem('page')) : 1
@@ -18,6 +18,7 @@ export const TutorialPage = () => {
   const [isCardsLoading, setCardsLoading] = useState(false)
   let userId = (localStorage.getItem('user'));
   let token = (localStorage.getItem('token'));
+  const [knownPage, SetKnownPage] = useState(false);
 
   useEffect(() => {
     savePageState();
@@ -64,6 +65,10 @@ export const TutorialPage = () => {
     setComplexity(value)
   }
 
+  function checkPageKnownWords(value: boolean) {
+    SetKnownPage(value)
+  }
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', height: '97vh' }}>
       {isCardsLoading
@@ -71,7 +76,7 @@ export const TutorialPage = () => {
         : <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           {words.map((word: WordCard) =>
             < Grid item xs={2} sm={4} md={4} key={word._id} display="flex" justifyContent="center" alignItems="center" >
-              <WordCards setFilter={setFilteredWords} wordList={words} _id={word._id} image={word.image} audio={word.audio} audioMeaning={word.audioMeaning} audioExample={word.audioExample} textMeaning={word.textMeaning} textExample={word.textExample} transcription={word.transcription} textExampleTranslate={word.textExampleTranslate} textMeaningTranslate={word.textMeaningTranslate} wordTranslate={word.wordTranslate} word={word.word} complexity={complexity} userWord={word.userWord} />
+              <WordCards checkKnowledge={checkPageKnownWords} setFilter={setFilteredWords} wordList={words} _id={word._id} image={word.image} audio={word.audio} audioMeaning={word.audioMeaning} audioExample={word.audioExample} textMeaning={word.textMeaning} textExample={word.textExample} transcription={word.transcription} textExampleTranslate={word.textExampleTranslate} textMeaningTranslate={word.textMeaningTranslate} wordTranslate={word.wordTranslate} word={word.word} complexity={complexity} userWord={word.userWord} />
             </Grid>)}
         </Grid>
       }
@@ -80,7 +85,7 @@ export const TutorialPage = () => {
           <Link to="/" onClick={setBodyColor}>
             <BungalowIcon color="primary" fontSize="large" style={{ cursor: 'pointer', width: 56, height: 56 }} />
           </Link>
-          <GamesButtons />
+          <GamesButtons state={knownPage} />
         </div>
         {complexity === 7 ?
           '' :
@@ -88,6 +93,7 @@ export const TutorialPage = () => {
         }
         <LevelsButton choseComplexity={changeComplexity} />
       </Paper >
+      <Footer />
     </div >
   )
 }

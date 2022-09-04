@@ -11,7 +11,7 @@ export default function StatisticIcon(word: any) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log(word.word.userWord?.optional)
+  // console.log(word.word.userWord?.optional)
   return (
     <div>
       <Tooltip title="Statistic">
