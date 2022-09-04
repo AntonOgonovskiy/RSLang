@@ -1,6 +1,14 @@
 .container {
   display: flex;
-  width: 300px;
+  width: 230px;
+  flex-direction: column;
+  padding-block: 20px;
+  padding-inline: 25px;
+}
+
+.logged__container {
+  display: flex;
+  width: 150px;
   flex-direction: column;
   padding-block: 20px;
   padding-inline: 25px;

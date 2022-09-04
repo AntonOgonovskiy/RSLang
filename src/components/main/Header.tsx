@@ -1,7 +1,14 @@
-import { AppBar, Button, Popover, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Popover,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { Container } from "@mui/system";
 import React, { FC } from "react";
-import RegistrationForm from "./RegistrationForm/RegistrationForm";
+import RegistrationForm from "../RegistrationForm/RegistrationForm";
 
 const Header: FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
@@ -20,10 +27,14 @@ const Header: FC = () => {
   const id = open ? "registry-popover" : undefined;
 
   return (
-    <AppBar>
+    <AppBar position="static">
       <Container>
         <Toolbar>
-          <Typography variant="h5" component="h1" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h5"
+            component="h1"
+            sx={{ flexGrow: 1, cursor: "default" }}
+          >
             RSLang
           </Typography>
           <Button
@@ -49,7 +60,7 @@ const Header: FC = () => {
               horizontal: "center",
             }}
           >
-            <RegistrationForm />
+            <RegistrationForm handleClosePopover={handleClose} />
           </Popover>
         </Toolbar>
       </Container>
