@@ -9,7 +9,7 @@ import React, { FC } from "react";
 import { links, accordions } from "./assets";
 import { Link } from "react-router-dom";
 import styles from "./Body.module.css";
-import { CustomPaper } from "../../CustomPaper";
+import { CustomPaperLink } from "../../CustomPaperLink";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const Body: FC = () => {
@@ -21,7 +21,7 @@ const Body: FC = () => {
     };
 
   return (
-    <main style={{ flexGrow: "1", paddingTop: "30px" }}>
+    <main style={{ flexGrow: "1" }}>
       <Container>
         <Grid
           container
@@ -32,9 +32,9 @@ const Body: FC = () => {
           {links.map((link, index) => (
             <Grid item xs={4} sm={4} md={4} key={index}>
               <Link to={link.link} className={styles.link}>
-                <CustomPaper elevation={6}>
+                <CustomPaperLink elevation={6}>
                   {link.icon} {link.title}
-                </CustomPaper>
+                </CustomPaperLink>
               </Link>
             </Grid>
           ))}

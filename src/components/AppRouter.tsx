@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Games } from "../pages/games";
 import { Main } from "../pages/main";
 import { Tutorial } from "../pages/tutorial";
-import Statistics from "./Statistics";
+import Statistics from "../pages/statistics";
 
 function AppRouter() {
   return (

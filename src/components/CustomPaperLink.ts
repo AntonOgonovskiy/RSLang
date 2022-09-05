@@ -1,8 +1,7 @@
 import { experimentalStyled as styled } from "@mui/material/styles";
 import { Paper } from "@mui/material";
 
-export const CustomPaper = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+export const CustomPaperLink = styled(Paper)(({ theme }) => ({
   ...theme.typography.h6,
   padding: theme.spacing(1.5),
   textAlign: "center",
