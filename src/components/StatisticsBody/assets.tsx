@@ -12,17 +12,6 @@ import styles from "./Statistics.module.css";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 
-const obj = {
-  id: "6311c9702429ee08820a4476",
-  learnedWords: 20,
-  optional: {
-    savannah:
-      '[{"rightAnswers":17,"wrongAnswers":3,"wordCounter":20,"bestSeries":6,"createdOn":1662110064057}]',
-    audiocall:
-      '[{"rightAnswers":19,"wrongAnswers":1,"wordCounter":20,"bestSeries":19,"createdOn":1662228392606}]',
-  },
-};
-
 export const statisticsCardsWords = [
   {
     body: (

@@ -1,6 +1,6 @@
-import { Box, Link, makeStyles, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import React, { FC } from "react";
+import { FC } from "react";
 import styles from "./Footer.module.css";
 import { creators } from "../../../assets";
 
