@@ -120,7 +120,7 @@ export const accordions = [
                       mb: "7px",
                       transition: "all ease 0.4s",
                       "&:hover": {
-                        color: "secondary.main",
+                        color: "warning.main",
                       },
                     }}
                   >

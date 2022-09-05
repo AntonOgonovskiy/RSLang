@@ -1,0 +1,10 @@
+.link {
+  text-decoration: none;
+  color: white;
+  flex-grow: 1;
+  transition: all ease 0.4s;
+}
+
+.link:hover {
+  color: #ef9a9a;
+}

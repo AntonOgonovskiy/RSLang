@@ -1,0 +1,28 @@
+.words__container,
+.words__container_column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 30px;
+}
+
+.words__container_column {
+  flex-direction: column;
+  gap: 30px;
+}
+
+.games__container {
+  padding: 25px 30px;
+}
+
+.games__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.newWords__amount {
+  font-weight: 700;
+  font-size: 4.25rem;
+}
