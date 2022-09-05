@@ -3,9 +3,14 @@ export interface user {
   password: string;
 }
 export interface WordBody {
-  difficulty: string;
+  difficulty?: string;
   optional: {
-    isKnown: boolean
+    isKnown?: boolean;
+    audioRight?: Promise<void>;
+    audioWrong?: Promise<void>;
+    sprintRight?: number;
+    sprintWrong?: number;
+
   }
 }
 export interface statistics {
@@ -41,7 +46,9 @@ export interface WordCard {
   wordTranslate: string,
   complexity: number,
   wordList: Array<{
+    userWord: any;
     _id: string;
   }>
-  setFilter: { (value: any): void }
+  setFilter: { (value: any): void },
+  checkKnowledge: { (value: boolean): void }
 }
