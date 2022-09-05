@@ -3,9 +3,14 @@ export interface user {
   password: string;
 }
 export interface WordBody {
-  difficulty: string;
+  difficulty?: string;
   optional: {
-    isKnown: boolean
+    isKnown?: boolean;
+    audioRight?: Promise<void>;
+    audioWrong?: Promise<void>;
+    sprintRight?: number;
+    sprintWrong?: number;
+
   }
 }
 export interface statistics {

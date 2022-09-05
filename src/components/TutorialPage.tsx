@@ -8,6 +8,8 @@ import BungalowIcon from '@mui/icons-material/Bungalow';
 import { Link } from 'react-router-dom';
 import GamesButtons from './GamesButtons';
 import Footer from './main/Footer/Footer';
+export let pageToGame = 1;
+export let complexityToGame = 1;
 
 export const TutorialPage = () => {
   const statePage: number = localStorage.getItem('page') ? Number(localStorage.getItem('page')) : 1
@@ -55,6 +57,8 @@ export const TutorialPage = () => {
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
+    pageToGame = value;
+    console.log(pageToGame)
   };
 
   const setBodyColor = () => {
@@ -63,6 +67,7 @@ export const TutorialPage = () => {
 
   function changeComplexity(value: number) {
     setComplexity(value)
+    complexityToGame = value
   }
 
   function checkPageKnownWords(value: boolean) {

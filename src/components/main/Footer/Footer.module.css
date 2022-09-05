@@ -1,11 +1,16 @@
+<<<<<<< HEAD
+.footer_bg {
+  height: 100%;
+=======
 .footer {
   height: 50px;
   width: 100%;
+>>>>>>> tutorial
 }
 
 .svgLogo {
   height: 40px;
-  width: 70px;
+  width: 80px;
   background: no-repeat center url("../../../../public/svg/image.svg");
   transition: all ease 0.4s;
 }

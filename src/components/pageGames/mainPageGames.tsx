@@ -25,12 +25,12 @@ export default function MediaCard(props: GamesNames) {
   const startGame = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     items.group = Number(level) - 1;
-    items.page = Math.random() * 29;
+    items.page = Math.floor(Math.random() * 29);
   }
   return (
-    <Card style={{display: 'flex', width: '300px', flexDirection: 'column', alignItems: 'center', marginTop: '100px', backgroundColor: '#EEEEEE' }} id={props.id}>
+    <Card style={{ display: 'flex', width: '300px', flexDirection: 'column', alignItems: 'center', marginTop: '100px', backgroundColor: '#EEEEEE' }} id={props.id}>
       <CardActionArea>
-      <img style={{ width: '100%' }} src={props.image} alt={props.name}/>
+        <img style={{ width: '100%' }} src={props.image} alt={props.name} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {props.name}
@@ -55,13 +55,13 @@ export default function MediaCard(props: GamesNames) {
           <Button variant="contained" color="primary" onClick={getLevel}>6</Button>
         </ButtonGroup>
       </ButtonGroup>
-      <Typography gutterBottom variant="h6" component="h6" style={{padding: '0px', marginBottom: '10px', marginTop: '10px'}}>
+      <Typography gutterBottom variant="h6" component="h6" style={{ padding: '0px', marginBottom: '10px', marginTop: '10px' }}>
         Level: {level}
       </Typography>
       <CardActions>
-      <Button variant="contained" color="secondary" onClick={startGame} style={{padding: '0px'}}>
-        <Link to={props.page} style={{borderRadius: '10px' , padding: '10px 20px', textDecoration: 'none'}}>Start</Link>
-      </Button>
+        <Button variant="contained" color="secondary" onClick={startGame} style={{ padding: '0px' }}>
+          <Link to={props.page} style={{ borderRadius: '10px', padding: '10px 20px', textDecoration: 'none' }}>Start</Link>
+        </Button>
       </CardActions>
     </Card>
   );

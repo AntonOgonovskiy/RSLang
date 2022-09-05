@@ -1,14 +1,16 @@
 import React, { FC } from "react";
-import Body from "../components/main/Body/Body";
 import Footer from "../components/main/Footer/Footer";
 import Header from "../components/main/Header/Header";
+import StatisticsBody from "../components/StatisticsBody/StatisticsBody";
 
-export const Main: FC = () => {
+const Statistics: FC = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Header />
-      <Body />
+      <Header linkToMain="/" />
+      <StatisticsBody />
       <Footer />
     </div>
   );
 };
+
+export default Statistics;

@@ -21,10 +21,12 @@ import {
 import { Box, Container } from "@mui/system";
 import { creators } from "../../../assets";
 
+export let toGamesFrom = 'game'
+
 export const links = [
-  { icon: <MenuBookIcon />, link: "/tutorial", title: "Учебник" },
+  { icon: <MenuBookIcon onClick={() => toGamesFrom = 'book'} />, link: "/tutorial", title: "Учебник" },
   { icon: <BarChartIcon />, link: "/statistics", title: "Статистика" },
-  { icon: <SportsEsportsIcon />, link: "/games", title: "Игры" },
+  { icon: <SportsEsportsIcon onClick={() => toGamesFrom = 'game'} />, link: "/games", title: "Игры" },
 ];
 
 const lists = [
@@ -120,7 +122,7 @@ export const accordions = [
                       mb: "7px",
                       transition: "all ease 0.4s",
                       "&:hover": {
-                        color: "secondary.main",
+                        color: "warning.main",
                       },
                     }}
                   >
