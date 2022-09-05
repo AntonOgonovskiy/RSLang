@@ -49,7 +49,6 @@ const RegistrationForm: FC<IRegistrationForm> = ({ handleClosePopover }) => {
 
   const signIn: SubmitHandler<ISignForm> = async (data) => {
     const response = await signInAPI(data);
-
     if (response.data === "error") {
       setIsErr(true);
       return;

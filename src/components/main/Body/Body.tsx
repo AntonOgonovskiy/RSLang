@@ -22,6 +22,7 @@ const Body: FC = () => {
 
   return (
     <main style={{ flexGrow: "1" }}>
+    <main style={{ flexGrow: "1", paddingTop: "30px" }}>
       <Container>
         <Grid
           container

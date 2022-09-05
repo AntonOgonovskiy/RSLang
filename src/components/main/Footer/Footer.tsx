@@ -67,6 +67,7 @@ const Footer: FC = () => {
         </Box>
       </Container>
     </Box>
+
   );
 };
 
