@@ -26,7 +26,7 @@ export default function GamesButtons(state: any) {
           <SpeedDialAction
             key="Audio"
             icon={
-              <Link to="/games/audio" onClick={setBodyColor}>
+              <Link to="/games/audio" onClick={setBodyColor} >
                 <MusicNoteIcon />
               </Link>
             }
