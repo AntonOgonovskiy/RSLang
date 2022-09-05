@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   height: 100%;
@@ -8,3 +12,39 @@ body {
 #root {
   height: 100%;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: linear-gradient(
+    0deg,
+    rgb(112, 177, 241) 5%,
+    rgb(126, 180, 235) 17%,
+    rgb(193, 215, 235) 24%,
+    rgb(161, 197, 231) 75%,
+    rgb(135, 185, 236) 89%,
+    rgb(53, 144, 235) 100%
+  );
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #f38a8a;
+  border-radius: 4px;
+  transition: all ease 0.4s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffae78;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ef9a9a;
+}
+
