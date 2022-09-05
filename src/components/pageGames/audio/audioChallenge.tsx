@@ -4,19 +4,30 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import { items } from "../mainPageGames";
-import { getAllWords } from "../../../api/api";
+import { getAllWords, getUserAggregatedWords, getUserWordById } from "../../../api/api";
 import { createInstance } from "react-async";
 import { IWord, GameResult, audioResultRight, audioResultWrong } from '../constants';
 import ShowAnswer from './ShowAnswer';
 import AudioButton from './audioButton';
 import Typography from '@mui/material/Typography';
 import Modal from "./modal";
-
+import { complexityToGame, pageToGame } from "components/TutorialPage";
+import { toGamesFrom } from "components/main/Body/assets";
+console.log(complexityToGame, pageToGame, ':', items.group, items.page)
 const getwordsCollection = async (): Promise<IWord[]> => {
-  const res = await getAllWords(items.group, items.page);
+  const res = localStorage.getItem('user') ?
+    await getUserAggregatedWords(
+      localStorage.getItem("user"),
+      localStorage.getItem("token"),
+      toGamesFrom === 'book' ? complexityToGame - 1 : items.group,
+      toGamesFrom === 'book' ? pageToGame - 1 : items.page)
+      .then((res) => res[0].paginatedResults) :
+    await getAllWords(items.group, items.page);
   return res;
 }
+
 const AsyncPlayer = createInstance({ promiseFn: getwordsCollection }, "AsyncPlayer");
+
 const MyComponent = React.memo((props: { rusWord: string }) => {
   return (
     <AsyncPlayer style={{ padding: '10px' }}>
@@ -32,7 +43,8 @@ export const randomNumber = (): number[] => {
   }
   return Array.from(nums);
 }
-export const oneOfFore = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+
+export const oneOfFore = () => Math.floor(Math.random() * (4 - 0)) + 0;
 
 const AudioChallenge = () => {
   const [word, setWord] = useState<IWord>();
@@ -41,10 +53,12 @@ const AudioChallenge = () => {
   let [counter, setCounter] = useState(0);
   let [limit, setLimit] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [randomIndex, setRandomIndex] = useState(oneOfFore())
 
   const addItemToArray = (array: GameResult[]) => {
     array.push({ wordEngl: word?.word, translate: word?.wordTranslate, audioRightWord: word?.audio });
   }
+
   const addCounter = () => {
     counter += 1;
   }
@@ -52,6 +66,7 @@ const AudioChallenge = () => {
   const checkLimit = () => {
     limit += 1;
   }
+
   useEffect(() => {
     getwordsCollection().then((res) => {
       const array = randomNumber().map((item) => {
@@ -60,11 +75,23 @@ const AudioChallenge = () => {
       })
       return array;
     }).then((data) => {
-      setWord(data[oneOfFore]);
+      setWord(data[randomIndex]);
       setWords(data);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const chooseValue = (event: React.MouseEvent<HTMLElement>) => {
+
+  async function setValueRight(id: any) {
+    const wordValue = await getUserWordById(localStorage.getItem('user'), id, localStorage.getItem('token')).then((res) => res.data.optional).catch((e) => e.message)
+    console.log(wordValue)
+  }
+
+  async function setValueWrong(id: any) {
+    const wordValue = await getUserWordById(localStorage.getItem('user'), id, localStorage.getItem('token')).then((res) => res.data.optional).catch((e) => e.message)
+    console.log(wordValue)
+  }
+
+  const chooseValue = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     const target = event.target as HTMLButtonElement;
     if (target.textContent === word?.wordTranslate) {
@@ -75,12 +102,15 @@ const AudioChallenge = () => {
       setLimit(limit);
       setCounter(counter);
       addItemToArray(audioResultRight)
+      setRandomIndex(oneOfFore());
+      setValueRight(word._id)
+      // await updateUserWord(localStorage.getItem('user'), word._id, { optional: { audioRight: setValueRight(word._id) } }, localStorage.getItem('token'))
       if (limit === 16) {
         setIsOpen(true);
       }
       setTimeout(() => {
         target.style.backgroundColor = '#7FBCD2';
-      }, 2000)
+      }, 500)
     } else {
       target.style.backgroundColor = "red";
       setDetails(true);
@@ -88,12 +118,15 @@ const AudioChallenge = () => {
       setLimit(limit);
       setCounter(counter);
       addItemToArray(audioResultWrong);
+      setRandomIndex(oneOfFore());
+      setValueWrong(word?._id)
+      // await updateUserWord(localStorage.getItem('user'), word?._id, { optional: { audioWrong: setValueWrong(word?._id) } }, localStorage.getItem('token'))
       if (limit === 16) {
         setIsOpen(true);
       }
       setTimeout(() => {
         target.style.backgroundColor = '#7FBCD2';
-      }, 2000);
+      }, 500);
     }
   }
   const showAnswer = () => {
@@ -107,12 +140,13 @@ const AudioChallenge = () => {
       })
       return array;
     }).then((data) => {
-      setWord(data[oneOfFore]);
+      setWord(data[randomIndex]);
       setWords(data);
     }).then(() => {
       setDetails(false);
     })
   }
+
   return (
     <div style={{ margin: '0', width: '100vw', height: '100vh', backgroundColor: '#A5F1E9' }}>
       <Container maxWidth="sm" style={{ height: '400px', width: '600px', position: 'absolute', top: 'calc(50vh - 200px)', left: 'calc(50% - 300px)' }}>

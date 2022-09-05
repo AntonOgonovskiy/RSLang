@@ -103,7 +103,7 @@ export async function setUserWord(
   ).catch((e) => e.message);
 }
 
-export async function getUserWordById(userId: string | null, wordId: string, token: string | null) {
+export async function getUserWordById(userId: string | null, wordId: string | undefined, token: string | null) {
   return axiosClient.get(`/users/${userId}/words/${wordId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -121,7 +121,7 @@ export async function deleteUserWord(userId: string | null, wordId: string, toke
 
 export async function updateUserWord(
   userId: string | null,
-  wordId: string,
+  wordId: string | undefined,
   body: WordBody,
   token: string | null
 ) {
