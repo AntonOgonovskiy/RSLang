@@ -1,0 +1,15 @@
+.footer {
+  height: 50px;
+  width: 100%;
+}
+
+.svgLogo {
+  height: 40px;
+  width: 70px;
+  background: no-repeat center url("../../../../public/svg/image.svg");
+  transition: all ease 0.4s;
+}
+
+.svgLogo:hover {
+  transform: scale(1.03);
+}

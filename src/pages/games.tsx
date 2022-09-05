@@ -1,12 +1,13 @@
+import RenderMain from 'components/pageGames/renderMain';
 import React from 'react';
 
 export const Games = () => {
   return (
     <div>
-      HIIIIIIIIIIIIIIIIIIII
+      <RenderMain />
     </div>
   );
 }
 
 
-// export default Games;
+
