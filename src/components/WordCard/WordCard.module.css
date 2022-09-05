@@ -1,0 +1,25 @@
+.cardBtn {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn_color_yellow {
+  color: yellow;
+}
+
+.btn_color_red {
+  color: red;
+}
+
+.card_buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px
+}
+
+.card_example {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around
+}
