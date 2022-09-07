@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import { items } from "../mainPageGames";
-import { getAllWords, getUserAggregatedWords, getUserWordById } from "../../../api/api";
+import { getAllWords, getUserAggregatedWords, getUserWordById, updateUserWord } from "../../../api/api";
 import { createInstance } from "react-async";
 import { IWord, GameResult, audioResultRight, audioResultWrong } from '../constants';
 import ShowAnswer from './ShowAnswer';
@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Modal from "./modal";
 import { complexityToGame, pageToGame } from "components/TutorialPage";
 import { toGamesFrom } from "components/main/Body/assets";
-console.log(complexityToGame, pageToGame, ':', items.group, items.page)
+
 const getwordsCollection = async (): Promise<IWord[]> => {
   const res = localStorage.getItem('user') ?
     await getUserAggregatedWords(
@@ -82,13 +82,24 @@ const AudioChallenge = () => {
   }, []);
 
   async function setValueRight(id: any) {
-    const wordValue = await getUserWordById(localStorage.getItem('user'), id, localStorage.getItem('token')).then((res) => res.data.optional).catch((e) => e.message)
-    console.log(wordValue)
+    const wordValue = await getUserWordById(localStorage.getItem('user'), id, localStorage.getItem('token')).then((res) => res.data).catch((e) => e.message)
+    if (wordValue.optional.audioRight) {
+      wordValue.optional.audioRight += 1
+    } else {
+      wordValue.optional.audioRight = 1
+    }
+    await updateUserWord(localStorage.getItem('user'), id, { difficulty: wordValue.difficulty, optional: wordValue.optional }, localStorage.getItem('token'))
   }
 
   async function setValueWrong(id: any) {
-    const wordValue = await getUserWordById(localStorage.getItem('user'), id, localStorage.getItem('token')).then((res) => res.data.optional).catch((e) => e.message)
-    console.log(wordValue)
+    const wordValue = await getUserWordById(localStorage.getItem('user'), id, localStorage.getItem('token')).then((res) => res.data).catch((e) => e.message)
+    if (wordValue.optional.audioWrong) {
+      wordValue.optional.audioWrong += 1
+    } else {
+      wordValue.optional.audioWrong = 1
+    }
+    wordValue.optional.isKnown = false
+    await updateUserWord(localStorage.getItem('user'), id, { difficulty: wordValue.difficulty, optional: wordValue.optional }, localStorage.getItem('token'))
   }
 
   const chooseValue = async (event: React.MouseEvent<HTMLElement>) => {
@@ -104,7 +115,6 @@ const AudioChallenge = () => {
       addItemToArray(audioResultRight)
       setRandomIndex(oneOfFore());
       setValueRight(word._id)
-      // await updateUserWord(localStorage.getItem('user'), word._id, { optional: { audioRight: setValueRight(word._id) } }, localStorage.getItem('token'))
       if (limit === 16) {
         setIsOpen(true);
       }
@@ -120,7 +130,6 @@ const AudioChallenge = () => {
       addItemToArray(audioResultWrong);
       setRandomIndex(oneOfFore());
       setValueWrong(word?._id)
-      // await updateUserWord(localStorage.getItem('user'), word?._id, { optional: { audioWrong: setValueWrong(word?._id) } }, localStorage.getItem('token'))
       if (limit === 16) {
         setIsOpen(true);
       }

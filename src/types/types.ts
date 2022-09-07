@@ -4,7 +4,7 @@ export interface user {
 }
 export interface WordBody {
   difficulty?: string;
-  optional: {
+  optional?: {
     isKnown?: boolean;
     audioRight?: Promise<void>;
     audioWrong?: Promise<void>;

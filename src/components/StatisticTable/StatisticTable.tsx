@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 
 
 export default function StatisticTable(stats: any) {
-
+  console.log(stats.stats)
   function createData(
     name: string,
     right: number,
@@ -19,8 +19,8 @@ export default function StatisticTable(stats: any) {
   }
 
   const rows = [
-    createData('Sprint', stats.right ? stats.right : 0, stats.wrong ? stats.wrong : 0),
-    createData('Audio', stats.right ? stats.right : 0, stats.wrong ? stats.wrong : 0),
+    createData('Audio', stats.stats?.audioRight ? stats.stats.audioRight : 0, stats.stats?.AudioWrong ? stats.stats.audioWrong : 0),
+    createData('Sprint', stats.stats?.sprintRight ? stats.stats.sprintRight : 0, stats.stats?.sprintWrong ? stats.stats.sprintWrong : 0),
   ];
 
   return (

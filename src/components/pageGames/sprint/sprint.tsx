@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { items } from "../mainPageGames";
-import { getAllWords, getUserAggregatedWords } from "../../../api/api";
+import { getAllWords, getUserAggregatedWords, getUserWordById, updateUserWord } from "../../../api/api";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -13,8 +13,29 @@ import { toGamesFrom } from "components/main/Body/assets";
 import { complexityToGame, pageToGame } from "components/TutorialPage";
 
 const Sprint = () => {
+  async function setValueRight(id: any) {
+    const wordValue = await getUserWordById(localStorage.getItem('user'), id, localStorage.getItem('token')).then((res) => res.data).catch((e) => e.message)
+    if (wordValue.optional.sprintRight) {
+      wordValue.optional.sprintRight += 1
+    } else {
+      wordValue.optional.sprintRight = 1
+    }
+    await updateUserWord(localStorage.getItem('user'), id, { difficulty: wordValue.difficulty, optional: wordValue.optional }, localStorage.getItem('token'))
+  }
+
+  async function setValueWrong(id: any) {
+    const wordValue = await getUserWordById(localStorage.getItem('user'), id, localStorage.getItem('token')).then((res) => res.data).catch((e) => e.message)
+    if (wordValue.optional.sprintWrong) {
+      wordValue.optional.sprintWrong += 1
+    } else {
+      wordValue.optional.sprintWrong = 1
+    }
+    wordValue.optional.isKnown = false
+    await updateUserWord(localStorage.getItem('user'), id, { difficulty: wordValue.difficulty, optional: wordValue.optional }, localStorage.getItem('token'))
+  }
   let [score, setScore] = useState(0);
   const [word, setWords] = useState();
+  const [id, setId] = useState();
   const [audioWord, setAudioWord] = useState();
   const [toRus, setTranslate] = useState();
   const [number, setNumber] = useState(0);
@@ -34,16 +55,20 @@ const Sprint = () => {
         addScore();
         setScore(score);
         addItemToArray(sprintResultRight);
+        setValueRight(id)
       } else {
         addItemToArray(sprintResultWrong);
+        setValueWrong(id)
       }
     } else if (target.id === 'btn-wrong') {
       if (number !== numberTranslate) {
         addScore();
         setScore(score);
         addItemToArray(sprintResultRight);
+        setValueRight(id)
       } else {
         addItemToArray(sprintResultWrong);
+        setValueWrong(id)
       }
     }
     const randomNumberWord = Math.floor(Math.random() * 19);
@@ -63,6 +88,7 @@ const Sprint = () => {
     setTranslate(res[numberTranslate].wordTranslate);
     setWords(res[number].word);
     setAudioWord(res[numberTranslate].audio);
+    setId(res[number]._id)
   }
   getwordsCollection();
   return (

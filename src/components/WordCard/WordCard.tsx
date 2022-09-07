@@ -52,9 +52,12 @@ const WordCards = (props: WordCard) => {
     const iconKnown = document.getElementById(`${props._id}_known`)
     if (iconDifficulty) iconDifficulty.style.color = 'black'
     const response = await getUserWordById(localStorage.getItem('user'), id, localStorage.getItem('token'))
+      .then((item) => item.data?.optional)
+      .catch((e) => e.message)
     if (iconKnown) {
       iconKnown.style.color = 'yellow'
       if (response) {
+        console.log(response)
         await updateUserWord(localStorage.getItem('user'), id, { difficulty: "easy", optional: { isKnown: true } }, localStorage.getItem('token'))
       } else {
         setUserWord(localStorage.getItem('user'), id, { difficulty: "easy", optional: { isKnown: true } }, localStorage.getItem('token'))

@@ -108,7 +108,7 @@ export async function getUserWordById(userId: string | null, wordId: string | un
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }).catch((e) => e.status);
+  }).catch((e) => e.message);
 }
 
 export async function deleteUserWord(userId: string | null, wordId: string, token: string | null) {
